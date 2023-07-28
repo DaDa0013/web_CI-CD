@@ -1,17 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                echo 'building the application...'
+                script{
+                    def gitGredentials = credentials('github_access_token')
+                    git credentialsId: gitCredentials.id, url: 'https://github.com/DaDa0013/web_CI-CD.git'
+                }
             }
         }
-        stage('test') {
+        stage('Test') {
             steps {
                 echo 'testing the application...'
             }
         }
-        stage('deploy') {
+        stage('Deploy') {
             steps {
                 echo 'deploying the application...'
             }
