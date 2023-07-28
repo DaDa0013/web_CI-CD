@@ -2,7 +2,7 @@
 FROM python:3.9
 WORKDIR /app
 COPY app.py /app/app.py
-COPY back/requirements.txt /app/back/requirements.txt
+COPY requirements.txt /app/requirements.txt
 RUN pip install -r back/requirements.txt
 CMD ["python", "app.py"]
 
