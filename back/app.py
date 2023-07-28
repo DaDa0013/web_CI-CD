@@ -12,7 +12,7 @@ collection = db['messages']
 
 @app.route('/')
 def index():
-    return "안녕하세요! 이곳은 게시판 백엔드입니다."
+    return "게시판"
 
 @app.route('/messages', methods=['GET', 'POST'])
 def handle_messages():

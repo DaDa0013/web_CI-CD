@@ -26,9 +26,8 @@ services:
       placement:
         constraints:
           - node.hostname == worker2
-
   mongodb:
-    image: mongo  # MongoDB 공식 이미지 사용
+    image: mongo
     networks:
       - my_app_network  # 컨테이너 간 통신을 위한 네트워크 지정
     volumes:
@@ -38,7 +37,7 @@ services:
         constraints:
           - node.hostname == worker3
 volumes:
-  mongodb_data:  # MongoDB 데이터를 유지할 볼륨 생성
+  mongodb_data: 
 
 networks:
   my_app_network:  # 컨테이너 간 통신을 위한 사용자 정의 네트워크 생성
