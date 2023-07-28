@@ -1,0 +1,19 @@
+[0;1;32m●[0m jenkins.service - Jenkins Continuous Integration Server
+     Loaded: loaded (/lib/systemd/system/jenkins.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Thu 2023-07-27 17:18:45 PDT; 4h 55min ago
+   Main PID: 18273 (java)
+      Tasks: 52 (limit: 9389)
+     Memory: 2.6G
+     CGroup: /system.slice/jenkins.service
+             └─18273 /usr/bin/java -Djava.awt.headless=true -jar /usr/share/java/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080
+
+Jul 27 17:28:08 manager jenkins[18273]: 2023-07-28 00:28:08.711+0000 [id=320]        INFO        jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+Jul 27 17:28:08 manager jenkins[18273]: 2023-07-28 00:28:08.800+0000 [id=327]        INFO        jenkins.InitReactorRunner$1#onAttained: Started all plugins
+Jul 27 17:28:08 manager jenkins[18273]: 2023-07-28 00:28:08.811+0000 [id=320]        INFO        jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+Jul 27 17:28:08 manager jenkins[18273]: 2023-07-28 00:28:08.867+0000 [id=327]        INFO        jenkins.InitReactorRunner$1#onAttained: System config loaded
+Jul 27 17:28:08 manager jenkins[18273]: 2023-07-28 00:28:08.867+0000 [id=327]        INFO        jenkins.InitReactorRunner$1#onAttained: System config adapted
+Jul 27 17:28:08 manager jenkins[18273]: 2023-07-28 00:28:08.905+0000 [id=322]        INFO        jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+Jul 27 17:28:08 manager jenkins[18273]: 2023-07-28 00:28:08.912+0000 [id=327]        INFO        jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+Jul 27 17:28:09 manager jenkins[18273]: 2023-07-28 00:28:09.324+0000 [id=324]        INFO        jenkins.InitReactorRunner$1#onAttained: Completed initialization
+Jul 27 17:28:09 manager jenkins[18273]: 2023-07-28 00:28:09.327+0000 [id=84]        INFO        h.m.UpdateCenter$CompleteBatchJob#run: Completed installation of 82 plugins in 3 min 57 sec
+Jul 27 17:42:14 manager jenkins[18273]: 2023-07-28 00:42:14.742+0000 [id=328]        INFO        h.p.b.g.GlobalTimeOutConfiguration#configure: global timeout has been cleared
