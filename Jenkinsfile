@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // Frontend Docker 이미지 빌드
-                    sh 'docker build -t my_frontend:latest ./front'
+                    sh 'docker build -t dada0013/my_frontend:latest ./front'
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Backend Docker 이미지 빌드
-                    sh 'docker build -t my_backend:latest ./back'
+                    sh 'docker build -t dada0013/my_backend:latest ./back'
                 }
             }
         }
