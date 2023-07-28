@@ -29,8 +29,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Docker Compose 실행
-                    sh 'docker-compose up -d'
+                    // Docker Swarm 클러스터에 서비스 배포
+                    sh 'docker stack deploy -c docker-compose.yml my_app'
                 }
             }
         }
