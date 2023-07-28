@@ -1,18 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Bulletin Board</title>
+    <title>간단한 게시판</title>
 </head>
 <body>
-    <h1>Welcome to the Bulletin Board</h1>
+    <h1>게시판에 오신 것을 환영합니다</h1>
     <ul id="messages">
-        <!-- Messages from the backend will be displayed here -->
+        <!-- 백엔드에서 가져온 메시지가 여기에 표시됩니다 -->
     </ul>
     <form id="messageForm">
         <input type="text" id="messageInput" />
-        <button type="submit">Send</button>
+        <button type="submit">전송</button>
     </form>
-    <script src="app.js"></script>
+    <script>
+        // 백엔드에서 메시지를 가져와서 화면에 표시하는 함수
+        async function getMessages() {
+            const response = await fetch('/messages');
+            const messages = await response.json();
+
+            const messagesList = document.getElementById('messages');
+            messagesList.innerHTML = '';
+
+            messages.forEach(message => {
+                const listItem = document.createElement('li');
+                listItem.innerText = message.message;
+                messagesList.appendChild(listItem);
+            });
+        }
+
+        // 폼 전송 처리 함수
+        async function sendMessage(event) {
+            event.preventDefault();
+            const messageInput = document.getElementById('messageInput');
+            const newMessage = messageInput.value;
+
+            if (newMessage.trim() !== '') {
+                const response = await fetch('/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: newMessage }),
+                });
+
+                if (response.ok) {
+                    messageInput.value = '';
+                    getMessages(); // 새로운 메시지를 추가한 후 메시지를 갱신합니다
+                }
+            }
+        }
+
+        // 페이지 로드 시 메시지를 가져옵니다
+        getMessages();
+
+        // 폼 전송 이벤트 리스너를 추가합니다
+        const messageForm = document.getElementById('messageForm');
+        messageForm.addEventListener('submit', sendMessage);
+    </script>
 </body>
 </html>
 
