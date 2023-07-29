@@ -2,44 +2,65 @@ version: '3.9'
 
 services:
   frontend:
-    image: dada0013/frontend:latest 
+    image: dada0013/frontend:latest
     ports:
-      - "80:80"  # 호스트의 80번 포트와 컨테이너의 80번 포트를 연결
+      - "8081:80"
     networks:
-      - my_app_network  # 컨테이너 간 통신을 위한 네트워크 지정
+      - my_app_network
     depends_on:
-      - backend  # 프론트엔드는 백엔드 서비스에 의존
+      - backend
     deploy:
       placement:
         constraints:
           - node.hostname == worker1
 
   backend:
-    image: dada0013/backend:latest  # 백엔드 이미지 이름
+    image: dada0013/backend:latest
     ports:
-      - "5000:5000"  # 호스트의 5000번 포트와 컨테이너의 5000번 포트를 연결
+      - "5001:5000"
     networks:
-      - my_app_network  # 컨테이너 간 통신을 위한 네트워크 지정
+      - my_app_network
     depends_on:
-      - mongodb  # 백엔드는 MongoDB 서비스에 의존
+      - mongodb1
+      - mongodb2
     deploy:
       placement:
         constraints:
           - node.hostname == worker2
-  mongodb:
-    image: mongo
-    networks:
-      - my_app_network  # 컨테이너 간 통신을 위한 네트워크 지정
+
+  mongodb1:
+    image: mongo:latest
+    container_name: mongodb1
+    command: mongod --replSet rs0 --bind_ip_all
+    restart: always
+    ports:
+      - "27017:27017"
     volumes:
-      - mongodb_data:/data/db  # 데이터를 유지하기 위한 볼륨 설정
+      - mongodb1_data:/data/db  # 볼륨 이름을 mongodb1_data로 변경
     deploy:
       placement:
         constraints:
           - node.hostname == worker3
+
+  mongodb2:
+    image: mongo:latest
+    container_name: mongodb2
+    command: mongod --replSet rs0 --bind_ip_all
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb2_data:/data/db  # 볼륨 이름을 mongodb2_data로 변경
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == worker3
+
 volumes:
-  mongodb_data: 
+  mongodb1_data:
+  mongodb2_data:
 
 networks:
-  my_app_network:  # 컨테이너 간 통신을 위한 사용자 정의 네트워크 생성
+  my_app_network:
     driver: overlay
-
+    attachable: true

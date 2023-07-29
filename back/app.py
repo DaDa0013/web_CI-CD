@@ -1,12 +1,11 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-app = Flask(__name__)
-
+CORS(app)
 # MongoDB에 연결
-client = MongoClient('mongodb://mongodb:27017/')
+client = MongoClient('mongodb://mongodb1:27017,mongodb2:27017/')
 db = client['bulletin_board']
 collection = db['messages']
 
@@ -32,3 +31,4 @@ def handle_messages():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
